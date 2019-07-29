@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_main"
+        android:title="Main"/>
+
+    <item
+        android:id="@+id/navigation_my_repositories"
+        android:title="My repositories"/>
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:title="Settings"/>
+</menu>

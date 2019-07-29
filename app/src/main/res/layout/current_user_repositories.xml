@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.sdi.github.ribs.authorized.repository.CurrentUserRepositoriesView
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/current_user_repositories_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/current_user_repositories_empty_screen_placeholder_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_sentiment_neutral_black_92dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/current_user_repositories_hint_message"
+    />
+
+    <TextView
+        android:id="@+id/current_user_repositories_hint_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="You don't have any repositories yet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/current_user_repositories_empty_screen_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="current_user_repositories_hint_message,current_user_repositories_empty_screen_placeholder_image"
+    />
+
+    <ProgressBar
+        android:id="@+id/current_user_repositories_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+    />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/current_user_repositories_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/repository_list_item"
+    />
+
+</me.sdi.github.ribs.authorized.repository.CurrentUserRepositoriesView>

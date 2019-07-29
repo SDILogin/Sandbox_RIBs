@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.sdi.github.ribs.authorized.DashboardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/dashboard_bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/dashboard_bottom_navigation_menu"
+        app:itemIconTint="@android:color/black"
+        app:itemTextColor="@android:color/black"
+    />
+
+</me.sdi.github.ribs.authorized.DashboardView>
