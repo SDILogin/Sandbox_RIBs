@@ -30,44 +30,63 @@ class DashboardRouter(
         currentUserRepositoriesRouter?.let {
             detachChild(it)
             view.removeView(it.view)
+        }?.also {
+            currentUserRepositoriesRouter = null
         }
+
         settingsRouter?.let {
             detachChild(it)
             view.removeView(it.view)
+        }?.also {
+            settingsRouter = null
         }
 
-        mainRouter = mainScreenBuilder.build(view)
-        mainRouter?.let { view.showScreen(it.view) }
-        attachChild(mainRouter)
+        if (mainRouter == null) {
+            mainRouter = mainScreenBuilder.build(view)
+            mainRouter?.let { view.showScreen(it.view) }
+            attachChild(mainRouter)
+        }
     }
 
     fun showCurrentUserProjects() {
         mainRouter?.let {
             detachChild(it)
             view.removeView(it.view)
+        }?.also {
+            mainRouter = null
         }
         settingsRouter?.let {
             detachChild(it)
             view.removeView(it.view)
+        }?.also {
+            settingsRouter = null
         }
 
-        currentUserRepositoriesRouter = currentUserRepositoriesScreenBuilder.build(view)
-        currentUserRepositoriesRouter?.let { view.showScreen(it.view) }
-        attachChild(currentUserRepositoriesRouter)
+        if (currentUserRepositoriesRouter == null) {
+            currentUserRepositoriesRouter = currentUserRepositoriesScreenBuilder.build(view)
+            currentUserRepositoriesRouter?.let { view.showScreen(it.view) }
+            attachChild(currentUserRepositoriesRouter)
+        }
     }
 
     fun showSettingsScreen() {
         mainRouter?.let {
             detachChild(it)
             view.removeView(it.view)
+        }.also {
+            mainRouter = null
         }
         currentUserRepositoriesRouter?.let {
             detachChild(it)
             view.removeView(it.view)
+        }.also {
+            currentUserRepositoriesRouter = null
         }
 
-        settingsRouter = settingsScreenBuilder.build(view)
-        settingsRouter?.let { view.showScreen(it.view) }
-        attachChild(settingsRouter)
+        if (settingsRouter == null) {
+            settingsRouter = settingsScreenBuilder.build(view)
+            settingsRouter?.let { view.showScreen(it.view) }
+            attachChild(settingsRouter)
+        }
     }
 }
