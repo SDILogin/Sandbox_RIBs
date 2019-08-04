@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import timber.log.Timber
+import java.util.*
 
 interface LoginGateway {
     fun performLoginOrThrowError(login: String, password: String): Token
@@ -30,7 +31,7 @@ class GithubLoginGateway(
                     MediaType.parse("application/json; charset=utf-8"),
                     """{
                         "scopes": ["public_repo"],
-                        "note": "test note"
+                        "note": "${generateRandomNote()}"
                     }""".trimIndent()
                 )
             )
@@ -47,4 +48,6 @@ class GithubLoginGateway(
 
         throw IllegalArgumentException("Failed to get token")
     }
+
+    private fun generateRandomNote(): String = "unique test note | ${UUID.randomUUID()}"
 }
