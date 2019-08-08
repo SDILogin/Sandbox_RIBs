@@ -8,6 +8,8 @@ import dagger.Binds
 import dagger.BindsInstance
 import dagger.Provides
 import me.sdi.github.R
+import me.sdi.github.RxSchedulers
+import me.sdi.github.ribs.TokenStorage
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy.CLASS
 import javax.inject.Qualifier
@@ -43,7 +45,9 @@ class SettingsBuilder(dependency: ParentComponent) :
     }
 
     interface ParentComponent {
-        // TODO: Define dependencies required from your parent interactor here.
+        fun tokenStorage(): TokenStorage
+        fun rxSchedulers(): RxSchedulers
+        fun logoutListener(): SettingsInteractor.Listener
     }
 
     @dagger.Module

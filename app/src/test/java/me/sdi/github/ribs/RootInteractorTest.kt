@@ -8,6 +8,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.inOrder
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 class RootInteractorTest : RibTestBasePlaceholder() {
@@ -36,7 +37,7 @@ class RootInteractorTest : RibTestBasePlaceholder() {
     @Test
     fun when_user_authorized_show_dashboard() {
         // preconditions
-        tokenStorage.store(Token(1L, "12dd44asd44"))
+        authorizedUser()
 
         // do
         InteractorHelper.attach(interactor, presenter, router, null)
@@ -44,8 +45,8 @@ class RootInteractorTest : RibTestBasePlaceholder() {
 
         // verify
         val routerInvocationOrder = inOrder(router)
-        routerInvocationOrder.verify(router).attachDashboardView()
-        routerInvocationOrder.verify(router).detachLoginView()
+        verify(router).attachDashboardView()
+        verify(router).detachLoginView()
     }
 
     /**
@@ -54,16 +55,15 @@ class RootInteractorTest : RibTestBasePlaceholder() {
     @Test
     fun when_user_unauthorized_show_login_screen() {
         // preconditions
-        tokenStorage.store(TokenStorage.UNAUTHORIZED_USER_TOKEN)
+        unauthorizedUser()
 
         // do
         InteractorHelper.attach(interactor, presenter, router, null)
         InteractorHelper.detach(interactor)
 
         // verify
-        val routerInvocationOrder = inOrder(router)
-        routerInvocationOrder.verify(router).attachLoginView()
-        routerInvocationOrder.verify(router).detachDashboardView()
+        verify(router).attachLoginView()
+        verify(router).detachDashboardView()
     }
 
     /**
@@ -77,9 +77,34 @@ class RootInteractorTest : RibTestBasePlaceholder() {
         InteractorHelper.detach(interactor)
 
         // verify
-        val routerInvocationOrder = inOrder(router)
-        routerInvocationOrder.verify(router).attachDashboardView()
-        routerInvocationOrder.verify(router).detachLoginView()
+        verify(router).attachDashboardView()
+        verify(router).detachLoginView()
+    }
+
+    /**
+     * user redirected to the dashboard screen after logout
+     */
+    @Test
+    fun when_triggered_logout_callback_method_show_login_screen() {
+        // preconditions
+        authorizedUser()
+
+        // do
+        InteractorHelper.attach(interactor, presenter, router, null)
+        interactor.onLogout()
+        InteractorHelper.detach(interactor)
+
+        // verify
+        verify(router).detachDashboardView()
+        verify(router).attachLoginView()
+    }
+
+    private fun authorizedUser() {
+        tokenStorage.store(Token(1L, "12dd44asd44"))
+    }
+
+    private fun unauthorizedUser() {
+        tokenStorage.store(TokenStorage.UNAUTHORIZED_USER_TOKEN)
     }
 }
 

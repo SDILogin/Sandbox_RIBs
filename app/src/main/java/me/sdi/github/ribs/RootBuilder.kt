@@ -13,6 +13,7 @@ import dagger.Provides
 import me.sdi.github.RuntimeRxSchedulers
 import me.sdi.github.RxSchedulers
 import me.sdi.github.ribs.authorized.DashboardBuilder
+import me.sdi.github.ribs.authorized.settings.SettingsInteractor
 import me.sdi.github.ribs.unauthorized.LoginBuilder
 import me.sdi.github.ribs.unauthorized.LoginInteractor
 import okhttp3.OkHttpClient
@@ -45,6 +46,7 @@ class RootBuilder(dependency: ParentComponent) :
             .view(view)
             .interactor(interactor)
             .loginListener(interactor)
+            .logoutListener(interactor)
             .build()
         return component.rootRouter()
     }
@@ -137,6 +139,9 @@ class RootBuilder(dependency: ParentComponent) :
 
             @BindsInstance
             fun loginListener(loginInteractorListener: LoginInteractor.Listener): Builder
+
+            @BindsInstance
+            fun logoutListener(logoutListener: SettingsInteractor.Listener): Builder
 
             @BindsInstance
             fun view(view: RootView): Builder

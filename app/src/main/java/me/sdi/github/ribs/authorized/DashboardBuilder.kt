@@ -18,6 +18,7 @@ import me.sdi.github.ribs.TokenStorage
 import me.sdi.github.ribs.authorized.main.MainBuilder
 import me.sdi.github.ribs.authorized.repository.CurrentUserRepositoriesBuilder
 import me.sdi.github.ribs.authorized.settings.SettingsBuilder
+import me.sdi.github.ribs.authorized.settings.SettingsInteractor
 import okhttp3.OkHttpClient
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy.CLASS
@@ -59,6 +60,7 @@ class DashboardBuilder(dependency: ParentComponent) :
         fun okHttpClient(): OkHttpClient
         fun moshi(): Moshi
         fun rxSchedulers(): RxSchedulers
+        fun logoutListener(): SettingsInteractor.Listener
     }
 
     @dagger.Module

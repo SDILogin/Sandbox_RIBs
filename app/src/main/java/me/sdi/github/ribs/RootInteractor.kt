@@ -3,6 +3,7 @@ package me.sdi.github.ribs
 import com.uber.rib.core.Bundle
 import com.uber.rib.core.Interactor
 import com.uber.rib.core.RibInteractor
+import me.sdi.github.ribs.authorized.settings.SettingsInteractor
 import me.sdi.github.ribs.unauthorized.LoginInteractor
 import javax.inject.Inject
 
@@ -16,7 +17,10 @@ import javax.inject.Inject
  * interactor [didBecomeActive]
  */
 @RibInteractor
-class RootInteractor : Interactor<RootInteractor.RootPresenter, RootRouter>(), LoginInteractor.Listener {
+class RootInteractor :
+    Interactor<RootInteractor.RootPresenter, RootRouter>(),
+    LoginInteractor.Listener,
+    SettingsInteractor.Listener {
 
     @Inject
     lateinit var rootPresenter: RootPresenter
@@ -41,6 +45,11 @@ class RootInteractor : Interactor<RootInteractor.RootPresenter, RootRouter>(), L
     override fun onSuccessfulLogin() {
         router.attachDashboardView()
         router.detachLoginView()
+    }
+
+    override fun onLogout() {
+        router.detachDashboardView()
+        router.attachLoginView()
     }
 
     /**
